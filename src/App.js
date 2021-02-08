@@ -1,91 +1,47 @@
-import { Button, Container, Form, Grid, Header, Icon, Segment, Statistic } from 'semantic-ui-react';
+import { useState, useEffect } from 'react'
+import { Container } from 'semantic-ui-react';
 import './App.css'
+import DisplayBalance from './Components/DisplayBalance';
+import DisplayBalances from './Components/DisplayBalances';
+import EntryLine from './Components/EntryLine';
+import Header from './Components/Header.js'
+import NewEntryForm from './Components/NewEntryForm';
 
 function App() {
+
+  const [totalIncomes, setTotalIncomes] = useState(4500)
+  const [totalExpenses, setTotalExpenses] = useState(4500)
+
+  useEffect(() => {
+    setTimeout(() => setTotalIncomes((props) => {
+      return props + 1000
+    }), 2000)
+  }, [])
+
   return (
     <Container>
 
-      <Header as='h1' >Budget</Header>
+      <Header title='Budget' />
 
-      <Statistic size='small' >
-        <Statistic.Label>Your Balance:</Statistic.Label>
-        <Statistic.Value>2,500</Statistic.Value>
-      </Statistic>
+      <DisplayBalance
+        label='Your Balance'
+        value='2,500'
+        size='small'
+      />
 
-      <Segment textAlign='center' >
+      <DisplayBalances incomes={totalIncomes} expenses={totalExpenses} />
 
-        <Grid columns={2} divided={true} >
-          <Grid.Row >
-            <Grid.Column >
-              <Statistic size='tiny' color='green' >
-                <Statistic.Label>Incomes</Statistic.Label>
-                <Statistic.Value>4,500</Statistic.Value>
-              </Statistic>
-            </Grid.Column>
+      <Header type='h3' title='History' />
 
-            <Grid.Column>
-              <Statistic size='tiny' color='red' >
-                <Statistic.Label>Expenses</Statistic.Label>
-                <Statistic.Value>2,000</Statistic.Value>
-              </Statistic>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+      <EntryLine isIncome={false} title='Description' value='125.98' />
 
-      </Segment>
+      <EntryLine isIncome title='Description' value='125.98' />
 
-      <Header as='h3'>History</Header>
+      <EntryLine isIncome title='Description' value='115.98' />
 
-      <Segment color='red' >
-        <Grid columns={3} textAlign='right' >
-          <Grid.Row >
-            <Grid.Column width={10} textAlign='left' >Description</Grid.Column>
-            <Grid.Column width={3} >125.98</Grid.Column>
-            <Grid.Column width={3} >
-              <Icon name='edit' bordered />
-              <Icon name='trash' bordered />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
+      <Header type='h3' title='Add Transaction' />
 
-      <Segment color='green' >
-        <Grid columns={3} textAlign='right' >
-          <Grid.Row >
-            <Grid.Column width={10} textAlign='left' >Description</Grid.Column>
-            <Grid.Column width={3} >125.98</Grid.Column>
-            <Grid.Column width={3} >
-              <Icon name='edit' bordered />
-              <Icon name='trash' bordered />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-
-      <Header as='h3' >Add Transaction</Header>
-    <Form unstackable >
-      <Form.Group >
-        <Form.Input 
-          placeholder='Insurance' 
-          icon='tags'
-          width={12}
-          label='Description'
-        />
-        <Form.Input 
-          placeholder='100.00' 
-          icon='currency'
-          width={4}
-          label='Value'
-          iconPosition='left'
-        />
-      </Form.Group>
-      <Button.Group style={{marginTop: 20}} >
-      <Button >Cancel</Button>
-      <Button.Or />
-      <Button primary >Ok</Button>
-      </Button.Group>
-      
-    </Form>
+      <NewEntryForm />
 
     </Container>
   );
