@@ -17,8 +17,8 @@ const ModalEdit = ({ modalIsOpen, entry, setEntry, setModalIsOpen, saveEntry }) 
             </Modal.Content>
             
             <Modal.Actions >
-                <Button onClick={() => saveEntry()} >Close</Button>
-                <Button onClick={() => setModalIsOpen(false)} primary >Save</Button>
+                <Button onClick={() => setModalIsOpen(false)} >Close</Button>
+                <Button onClick={() => saveEntry()} primary >Save</Button>
             </Modal.Actions>
 
         </Modal>

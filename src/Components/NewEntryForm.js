@@ -13,7 +13,7 @@ const NewEntryForm = ({addEntry, entry, setEntry}) => {
                 setEntry={setEntry}
             />
             
-            <ButtonSaveOrCancel addEntry={addEntry}  entry={entry} />
+            <ButtonSaveOrCancel addEntry={addEntry}  />
 
         </Form>
     )

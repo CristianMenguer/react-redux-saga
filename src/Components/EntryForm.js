@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Checkbox, Form, Segment } from 'semantic-ui-react'
 
 const EntryForm = ({ entry, setEntry }) => {
@@ -16,7 +16,7 @@ const EntryForm = ({ entry, setEntry }) => {
                 />
                 <Form.Input
                     placeholder='100.00'
-                    icon='currency'
+                    icon='dollar'
                     width={4}
                     label='Value'
                     iconPosition='left'

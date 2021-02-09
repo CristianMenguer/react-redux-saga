@@ -49,15 +49,30 @@ function App() {
     if (!!entries)
       entries.forEach(entry => {
         if (entry.isIncome)
-          incomes += entry.value
+          incomes += parseFloat(entry.value)
         else
-          expenses += entry.value
+          expenses += parseFloat(entry.value)
       })
     //
     setTotalIncomes(incomes)
     setTotalExpenses(expenses)
     //
   }, [entries])
+
+  useEffect(() => {
+    if (!modalIsOpen && !!entry && entry.id > 0)
+      resetEntry()
+    //
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalIsOpen])
+
+  const resetEntry = () => {
+    setEntry({
+      id: 0,
+      description: '',
+      value: 0
+  })
+  }
 
   const deleteEntry = (id) => {
     const result = entries.filter(element => element.id !== id)
@@ -75,13 +90,12 @@ function App() {
     }
   }
 
-  const addEntry = (entry) => {
+  const addEntry = () => {
     const newEntry = {
+      ...entry,
       id: entries.length + 1,
-      description: entry.description,
-      value: entry.value,
-      isIncome: entry.isIncome
     }
+    resetEntry()
     setEntries([...entries, newEntry])
   }
 
@@ -91,7 +105,7 @@ function App() {
     newEntries[index] = entry
     //
     setEntries(newEntries)
-    setEntry({})
+    resetEntry()
     setModalIsOpen(false)
   }
 
