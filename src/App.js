@@ -35,10 +35,10 @@ function App() {
   const [totalExpenses, setTotalExpenses] = useState(4500)
   const [entries, setEntries] = useState(initialEntries)
   const [entry, setEntry] = useState({
-      id: 0,
-      description: '',
-      value: 0,
-      isIncome: true
+    id: 0,
+    description: '',
+    value: 0,
+    isIncome: true
   })
   //
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -66,12 +66,26 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalIsOpen])
 
+
+  const getNewId = () => {
+    if (!entries || entries.length < 1)
+      return 1
+    //
+    let result = 1
+    entries.forEach(element => {
+      while (element.id >= result)
+        result++
+    })
+    //
+    return result
+  }
+
   const resetEntry = () => {
     setEntry({
       id: 0,
       description: '',
       value: 0
-  })
+    })
   }
 
   const deleteEntry = (id) => {
@@ -84,7 +98,7 @@ function App() {
       const index = entries.findIndex(element => element.id === propId)
       const entryToEdit = entries[index]
       if (entryToEdit.id === propId) {
-        setEntry(entryToEdit)        
+        setEntry(entryToEdit)
       }
       setModalIsOpen(true)
     }
@@ -93,7 +107,7 @@ function App() {
   const addEntry = () => {
     const newEntry = {
       ...entry,
-      id: entries.length + 1,
+      id: getNewId(),
     }
     resetEntry()
     setEntries([...entries, newEntry])
