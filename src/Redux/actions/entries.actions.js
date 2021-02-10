@@ -13,3 +13,10 @@ export const removeEntryRedux = (idToRemove) => {
         }
     }
 }
+
+export const updateEntryRedux = (payload) => {
+    return {
+        type: 'UPDATE_ENTRY',
+        payload
+    }
+}

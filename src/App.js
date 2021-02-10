@@ -7,160 +7,74 @@ import EntryLines from './Components/EntryLines';
 import Header from './Components/Header.js'
 import ModalEdit from './Components/ModalEdit';
 import NewEntryForm from './Components/NewEntryForm';
+import { useSelector } from 'react-redux'
+import useEntryDetails from './hooks/useEntryDetails';
 
 function App() {
 
-  const initialEntries = [
-    {
-      id: 1,
-      description: 'Salary',
-      value: 1000,
-      isIncome: true
-    },
-    {
-      id: 2,
-      description: 'Rent',
-      value: 300,
-      isIncome: false
-    },
-    {
-      id: 3,
-      description: 'Groceries',
-      value: 200,
-      isIncome: false
-    },
-  ]
-
-  const [totalIncomes, setTotalIncomes] = useState(4500)
-  const [totalExpenses, setTotalExpenses] = useState(4500)
-  const [entries, setEntries] = useState(initialEntries)
-  const [entry, setEntry] = useState({
-    id: 0,
-    description: '',
-    value: 0,
-    isIncome: true
-  })
-  //
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-
-  useEffect(() => {
-    let incomes = 0
-    let expenses = 0
-    if (!!entries)
-      entries.forEach(entry => {
-        if (entry.isIncome)
-          incomes += parseFloat(entry.value)
-        else
-          expenses += parseFloat(entry.value)
-      })
+    const [totalIncomes, setTotalIncomes] = useState(4500)
+    const [totalExpenses, setTotalExpenses] = useState(4500)
     //
-    setTotalIncomes(incomes)
-    setTotalExpenses(expenses)
+    const entries = useSelector(state => state.entries)
+    const { isEditModalOpen, idEditModal } = useSelector(state => state.modals)
     //
-  }, [entries])
+    const { setEntry } = useEntryDetails()
 
-  useEffect(() => {
-    if (!modalIsOpen && !!entry && entry.id > 0)
-      resetEntry()
-    //
+    useEffect(() => {
+        let incomes = 0
+        let expenses = 0
+        if (!!entries)
+            entries.forEach(entry => {
+                if (entry.isIncome)
+                    incomes += parseFloat(entry.value)
+                else
+                    expenses += parseFloat(entry.value)
+            })
+        //
+        setTotalIncomes(incomes)
+        setTotalExpenses(expenses)
+        //
+    }, [entries])
+
+    useEffect(() => {
+        console.log(idEditModal)
+        if (isEditModalOpen && idEditModal > 0) {
+            const entryToEdit = entries.filter(element => element.id === idEditModal)
+            setEntry(entryToEdit[0])
+        }
+        //
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalIsOpen])
+    }, [isEditModalOpen, idEditModal])
 
+    return (
+        <Container>
 
-  const getNewId = () => {
-    if (!entries || entries.length < 1)
-      return 1
-    //
-    let result = 1
-    entries.forEach(element => {
-      while (element.id >= result)
-        result++
-    })
-    //
-    return result
-  }
+            <Header title='Budget' />
 
-  const resetEntry = () => {
-    setEntry({
-      id: 0,
-      description: '',
-      value: 0
-    })
-  }
+            <DisplayBalance
+                label='Your Balance'
+                value={totalIncomes - totalExpenses}
+                size='small'
+                color={totalIncomes - totalExpenses < 0 ? 'red' : 'green'}
+            />
 
-  const deleteEntry = (id) => {
-    const result = entries.filter(element => element.id !== id)
-    setEntries(result)
-  }
+            <DisplayBalances incomes={totalIncomes} expenses={totalExpenses} />
 
-  const editEntry = (propId) => {
-    if (!!propId) {
-      const index = entries.findIndex(element => element.id === propId)
-      const entryToEdit = entries[index]
-      if (entryToEdit.id === propId) {
-        setEntry(entryToEdit)
-      }
-      setModalIsOpen(true)
-    }
-  }
+            <Header type='h3' title='History' />
 
-  const addEntry = () => {
-    const newEntry = {
-      ...entry,
-      id: getNewId(),
-    }
-    resetEntry()
-    setEntries([...entries, newEntry])
-  }
+            <EntryLines
+                data={entries}
+            />
 
-  const saveEntry = () => {
-    const newEntries = [...entries]
-    const index = entries.findIndex(element => element.id === entry.id)
-    newEntries[index] = entry
-    //
-    setEntries(newEntries)
-    resetEntry()
-    setModalIsOpen(false)
-  }
+            <Header type='h3' title='Add Transaction' />
 
-  return (
-    <Container>
+            <NewEntryForm />
 
-      <Header title='Budget' />
-
-      <DisplayBalance
-        label='Your Balance'
-        value={totalIncomes - totalExpenses}
-        size='small'
-      />
-
-      <DisplayBalances incomes={totalIncomes} expenses={totalExpenses} />
-
-      <Header type='h3' title='History' />
-
-      <EntryLines
-        data={entries}
-        deleteEntry={deleteEntry}
-        editEntry={editEntry}
-      />
-
-      <Header type='h3' title='Add Transaction' />
-
-      <NewEntryForm
-        addEntry={addEntry}
-        entry={entry}
-        setEntry={setEntry}
-      />
-
-      <ModalEdit
-        modalIsOpen={modalIsOpen}
-        setModalIsOpen={setModalIsOpen}
-        entry={entry}
-        setEntry={setEntry}
-        saveEntry={saveEntry}
-      />
-    </Container>
-  );
+            <ModalEdit
+                modalIsOpen={isEditModalOpen}
+            />
+        </Container>
+    );
 }
 
 export default App;

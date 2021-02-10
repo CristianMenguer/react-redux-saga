@@ -17,6 +17,12 @@ const initialEntries = [
         value: 200,
         isIncome: false
     },
+    {
+        id: 4,
+        description: 'Dining Out',
+        value: 70,
+        isIncome: false
+    },
 ]
 
 const entriesReducer = (state = initialEntries, action) => {
@@ -30,6 +36,15 @@ const entriesReducer = (state = initialEntries, action) => {
         const newEntries = state.filter(element => element.id !== action.payload.id)
         //
         return newEntries
+    }
+    //
+    if (action.type === 'UPDATE_ENTRY') {
+        const newEntries = [...state]
+        const index = newEntries.findIndex(element => element.id === action.payload.id)
+        if (newEntries[index].id === action.payload.id) {
+            newEntries[index] = {...action.payload}
+            return newEntries
+        }
     }
     //
     return state

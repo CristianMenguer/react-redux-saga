@@ -2,18 +2,21 @@ import React from 'react'
 import { Form } from 'semantic-ui-react'
 import ButtonSaveOrCancel from './ButtonSaveOrCancel'
 import EntryForm from './EntryForm'
+import useEntryDetails from '../hooks/useEntryDetails'
 
-const NewEntryForm = ({addEntry, entry, setEntry}) => {
+const NewEntryForm = () => {
+
+    const { entry, setEntry, addEntry } = useEntryDetails()
 
     return (
         <Form unstackable >
-            
-            <EntryForm 
-                entry={entry} 
+
+            <EntryForm
+                entry={entry}
                 setEntry={setEntry}
             />
-            
-            <ButtonSaveOrCancel addEntry={addEntry}  />
+
+            <ButtonSaveOrCancel addEntry={addEntry} />
 
         </Form>
     )
