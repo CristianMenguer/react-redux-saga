@@ -14,6 +14,15 @@ const useEntryDetails = () => {
 
     const dispatch = useDispatch()
 
+    const resetValues = () => {
+        setEntry({
+            id: 0,
+            description: '',
+            value: '',
+            isIncome: false
+        })
+    }
+
     const addEntry = () => {
         const newEntry = {
             ...entry,
@@ -22,22 +31,14 @@ const useEntryDetails = () => {
         //
         dispatch(addEntryRedux(newEntry))
         //
-        setEntry({
-            id: 0,
-            description: '',
-            value: ''
-        })
+        resetValues()
     }
 
-    const editEntry = () => {
-        dispatch(updateEntryRedux(entry))
+    const editEntry = (entryToEdit) => {
+        dispatch(updateEntryRedux(entryToEdit))
         dispatch(closeEditModalRedux())
         //
-        setEntry({
-            id: 0,
-            description: '',
-            value: ''
-        })
+        resetValues()
     }
 
     return {

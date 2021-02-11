@@ -1,8 +1,8 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
+import useEntryDetails from '../hooks/useEntryDetails'
 import ButtonSaveOrCancel from './ButtonSaveOrCancel'
 import EntryForm from './EntryForm'
-import useEntryDetails from '../hooks/useEntryDetails'
 
 const NewEntryForm = () => {
 
@@ -11,10 +11,7 @@ const NewEntryForm = () => {
     return (
         <Form unstackable >
 
-            <EntryForm
-                entry={entry}
-                setEntry={setEntry}
-            />
+            <EntryForm entry={entry} setEntry={setEntry} />
 
             <ButtonSaveOrCancel addEntry={addEntry} />
 

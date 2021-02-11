@@ -3,12 +3,10 @@ import { useDispatch } from 'react-redux'
 import { Button, Modal } from 'semantic-ui-react'
 import { closeEditModalRedux } from '../Redux/actions/modals.actions'
 import EntryForm from './EntryForm'
-import useEntryDetails from '../hooks/useEntryDetails'
 
-const ModalEdit = ({ modalIsOpen }) => {
+const ModalEdit = ({ modalIsOpen, entry, setEntry, editEntry }) => {
 
     const dispatch = useDispatch()
-    const { entry, setEntry, editEntry } = useEntryDetails()
 
     return (
         <Modal
@@ -16,16 +14,13 @@ const ModalEdit = ({ modalIsOpen }) => {
         >
             <Modal.Header>Edit Entry</Modal.Header>
             <Modal.Content >
-                <EntryForm
-                    entry={entry}
-                    setEntry={setEntry}
-                />
+                <EntryForm entry={entry} setEntry={setEntry} />
             </Modal.Content>
 
             <Modal.Actions >
                 <Button onClick={() => dispatch(closeEditModalRedux())} >Close</Button>
                 <Button
-                    onClick={() => editEntry()}
+                    onClick={() => editEntry(entry)}
                     primary
                 >Save</Button>
             </Modal.Actions>

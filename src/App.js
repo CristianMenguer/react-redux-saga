@@ -18,7 +18,8 @@ function App() {
     const entries = useSelector(state => state.entries)
     const { isEditModalOpen, idEditModal } = useSelector(state => state.modals)
     //
-    const { setEntry } = useEntryDetails()
+    const { entry, setEntry, editEntry } = useEntryDetails()
+    //
 
     useEffect(() => {
         let incomes = 0
@@ -37,7 +38,6 @@ function App() {
     }, [entries])
 
     useEffect(() => {
-        console.log(idEditModal)
         if (isEditModalOpen && idEditModal > 0) {
             const entryToEdit = entries.filter(element => element.id === idEditModal)
             setEntry(entryToEdit[0])
@@ -72,6 +72,9 @@ function App() {
 
             <ModalEdit
                 modalIsOpen={isEditModalOpen}
+                entry={entry}
+                setEntry={setEntry}
+                editEntry={editEntry}
             />
         </Container>
     );

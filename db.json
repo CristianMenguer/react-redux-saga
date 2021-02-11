@@ -1,0 +1,38 @@
+{
+    "entries": [
+        {
+            "id": 1,
+            "description": "Salary",
+            "value": 1000,
+            "isIncome": true
+        },
+        {
+            "id": 2,
+            "description": "Rent",
+            "value": 300,
+            "isIncome": false
+        },
+        {
+            "id": 3,
+            "description": "Groceries",
+            "value": 200,
+            "isIncome": false
+        },
+        {
+            "id": 4,
+            "description": "Dining Out",
+            "value": 70,
+            "isIncome": false
+        },
+        {
+            "id": 5,
+            "description": "Deliveroo",
+            "value": 150,
+            "isIncome": true
+        }
+    ],
+    "modals": {
+        "isEditModalOpen": false,
+        "idEditModal": 0
+    }
+}

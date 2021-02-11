@@ -12,8 +12,7 @@ const EntryForm = ({ entry, setEntry }) => {
                     width={12}
                     label='Description'
                     value={entry.description}
-                    onChange={(event) => setEntry(oldState => ({ ...oldState, description: event.target.value }))}
-                />
+                    onChange={(event) => setEntry(oldState => ({ ...oldState, description: event.target.value }))}/>
                 <Form.Input
                     placeholder='100.00'
                     icon='dollar'
