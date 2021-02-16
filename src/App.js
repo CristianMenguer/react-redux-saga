@@ -7,12 +7,14 @@ import EntryLines from './Components/EntryLines';
 import Header from './Components/Header.js'
 import ModalEdit from './Components/ModalEdit';
 import NewEntryForm from './Components/NewEntryForm';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useEntryDetails from './hooks/useEntryDetails';
-import axios from 'axios'
+import { getEntriesRedux } from './Redux/actions/entries.actions'
 
 function App() {
 
+    const dispatch = useDispatch()
+    //
     const [totalIncomes, setTotalIncomes] = useState(4500)
     const [totalExpenses, setTotalExpenses] = useState(4500)
     //
@@ -47,16 +49,8 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditModalOpen, idEditModal])
 
-    const fetchInitialData = async () => {
-        const entriesResponse = await axios.get('http://localhost:3003/entries')
-        console.log(entriesResponse.data)
-        //
-        const modalsResponse = await axios.get('http://localhost:3003/modals')
-        console.log(modalsResponse.data)
-    }
-
     useEffect(() => {
-        fetchInitialData()
+        dispatch(getEntriesRedux())
     }, [])
 
     return (

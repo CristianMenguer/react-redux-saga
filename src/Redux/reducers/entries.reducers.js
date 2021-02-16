@@ -45,9 +45,13 @@ const entriesReducer = (state = initialEntries, action) => {
         const newEntries = [...state]
         const index = newEntries.findIndex(element => element.id === action.payload.id)
         if (newEntries[index].id === action.payload.id) {
-            newEntries[index] = {...action.payload}
+            newEntries[index] = { ...action.payload }
             return newEntries
         }
+    }
+    //
+    if (action.type === entriesTypes.POPULATE_ENTRIES) {
+        return action.payload
     }
     //
     return state
