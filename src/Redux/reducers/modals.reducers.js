@@ -1,10 +1,12 @@
+import { types as modalsTypes } from '../actions/modals.actions'
+
 const initialModals = {
     isEditModalOpen: false,
     idEditModal: 0,
 }
 
 const modalsReducer = (state = initialModals, action) => {
-    if (action.type === 'OPEN_EDIT_MODAL') {
+    if (action.type === modalsTypes.OPEN_EDIT_MODAL) {
         return {
             ...state,
             isEditModalOpen: true,
@@ -12,7 +14,7 @@ const modalsReducer = (state = initialModals, action) => {
         }
     }
     //
-    if (action.type === 'CLOSE_EDIT_MODAL') {
+    if (action.type === modalsTypes.CLOSE_EDIT_MODAL) {
         return {
             ...state,
             isEditModalOpen: false,

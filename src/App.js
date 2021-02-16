@@ -9,6 +9,7 @@ import ModalEdit from './Components/ModalEdit';
 import NewEntryForm from './Components/NewEntryForm';
 import { useSelector } from 'react-redux'
 import useEntryDetails from './hooks/useEntryDetails';
+import axios from 'axios'
 
 function App() {
 
@@ -45,6 +46,18 @@ function App() {
         //
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditModalOpen, idEditModal])
+
+    const fetchInitialData = async () => {
+        const entriesResponse = await axios.get('http://localhost:3003/entries')
+        console.log(entriesResponse.data)
+        //
+        const modalsResponse = await axios.get('http://localhost:3003/modals')
+        console.log(modalsResponse.data)
+    }
+
+    useEffect(() => {
+        fetchInitialData()
+    }, [])
 
     return (
         <Container>
