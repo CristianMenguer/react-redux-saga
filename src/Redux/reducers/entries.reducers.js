@@ -1,41 +1,13 @@
 import { types as entriesTypes } from '../actions/entries.actions'
 
-const initialEntries = [
-    // {
-    //     id: 1,
-    //     description: 'Salary',
-    //     value: 1000,
-    //     isIncome: true
-    // },
-    // {
-    //     id: 2,
-    //     description: 'Rent',
-    //     value: 300,
-    //     isIncome: false
-    // },
-    // {
-    //     id: 3,
-    //     description: 'Groceries',
-    //     value: 200,
-    //     isIncome: false
-    // },
-    // {
-    //     id: 4,
-    //     description: 'Dining Out',
-    //     value: 70,
-    //     isIncome: false
-    // },
-]
-
-
-const entriesReducer = (state = initialEntries, action) => {
-    if (action.type === entriesTypes.ADD_ENTRY) {
-        const newEntries = state.concat({ ...action.payload })
+const entriesReducer = (state = [], action) => {
+    if (action.type === entriesTypes.ADD_ENTRY_RESULT) {
+        const newEntries = state.concat([{ ...action.payload }])
         //
         return newEntries
     }
     //
-    if (action.type === entriesTypes.REMOVE_ENTRY) {
+    if (action.type === entriesTypes.REMOVE_ENTRY_RESULT) {
         const newEntries = state.filter(element => element.id !== action.payload.id)
         //
         return newEntries
@@ -43,9 +15,12 @@ const entriesReducer = (state = initialEntries, action) => {
     //
     if (action.type === entriesTypes.UPDATE_ENTRY) {
         const newEntries = [...state]
+        if (!newEntries || newEntries.length < 1)
+            return state
+        //
         const index = newEntries.findIndex(element => element.id === action.payload.id)
         if (newEntries[index].id === action.payload.id) {
-            newEntries[index] = { ...action.payload }
+            newEntries[index] = { ...newEntries[index], ...action.payload }
             return newEntries
         }
     }

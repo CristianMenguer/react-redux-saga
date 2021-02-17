@@ -29,10 +29,11 @@ function App() {
         let expenses = 0
         if (!!entries)
             entries.forEach(entry => {
-                if (entry.isIncome)
-                    incomes += parseFloat(entry.value)
-                else
-                    expenses += parseFloat(entry.value)
+                if (!!entry.value)
+                    if (entry.isIncome)
+                        incomes += parseFloat(entry.value)
+                    else
+                        expenses += parseFloat(entry.value)
             })
         //
         setTotalIncomes(incomes)
@@ -46,12 +47,12 @@ function App() {
             setEntry(entryToEdit[0])
         }
         //
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEditModalOpen, idEditModal])
 
     useEffect(() => {
         dispatch(getEntriesRedux())
-    }, [])
+    }, [dispatch])
 
     return (
         <Container>
