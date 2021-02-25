@@ -1,73 +1,46 @@
 {
-  "entries": [
-    {
-      "id": 1,
-      "description": "Salary"
-    },
-    {
-      "id": 2,
-      "description": "Rent"
-    },
-    {
-      "id": 3,
-      "description": "Groceries"
-    },
-    {
-      "id": 4,
-      "description": "Dining Out"
-    },
-    {
-      "id": 5,
-      "description": "Deliveroo"
-    },
-    {
-      "id": 6,
-      "description": "Visa"
-    },
-    {
-      "id": "6fd66e92-cd03-47a3-bee9-ed1753bbab2b",
-      "description": "555"
+    "entries": [
+        {
+            "id": 1,
+            "description": "Salary"
+        },
+        {
+            "id": 2,
+            "description": "Rent"
+        },
+        {
+            "id": 3,
+            "description": "Groceries"
+        },
+        {
+            "id": 4,
+            "description": "Dining Out"
+        }
+    ],
+    "entriesValues": [
+        {
+            "id": 1,
+            "value": 1000,
+            "isIncome": true
+        },
+        {
+            "id": 2,
+            "value": 300,
+            "isIncome": false
+        },
+        {
+            "id": 3,
+            "value": 200,
+            "isIncome": false
+        },
+        {
+            "id": 4,
+            "value": 70,
+            "isIncome": false
+        }
+    ],
+    "modals": {
+        "isEditModalOpen": false,
+        "idEditModal": 0
     }
-  ],
-  "entriesValues": [
-    {
-      "id": 1,
-      "value": 1000,
-      "isIncome": true
-    },
-    {
-      "id": 2,
-      "value": 300,
-      "isIncome": false
-    },
-    {
-      "id": 3,
-      "value": 200,
-      "isIncome": false
-    },
-    {
-      "id": 4,
-      "value": 70,
-      "isIncome": false
-    },
-    {
-      "id": 5,
-      "value": 150,
-      "isIncome": true
-    },
-    {
-      "id": 6,
-      "value": 300,
-      "isIncome": false
-    },
-    {
-      "id": "6fd66e92-cd03-47a3-bee9-ed1753bbab2b",
-      "value": "55",
-      "isIncome": true
-    }
-  ],
-  "modals": {
-    "isEditModalOpen": false,
-    "idEditModal": 0
-  }
 }
